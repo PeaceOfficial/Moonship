@@ -18,20 +18,20 @@ import (
 
 var BaseDir string
 var BaseDirErr error
-var EquicordDirectory string
+var MooncordDirectory string
 
 func init() {
-	if dir := os.Getenv("EQUICORD_USER_DATA_DIR"); dir != "" {
-		Log.Debug("Using EQUICORD_USER_DATA_DIR")
+	if dir := os.Getenv("MOONCORD_USER_DATA_DIR"); dir != "" {
+		Log.Debug("Using MOONCORD_USER_DATA_DIR")
 		BaseDir = dir
 	} else if dir = os.Getenv("DISCORD_USER_DATA_DIR"); dir != "" {
-		Log.Debug("Using DISCORD_USER_DATA_DIR/../EquicordData")
-		BaseDir = path.Join(dir, "..", "EquicordData")
+		Log.Debug("Using DISCORD_USER_DATA_DIR/../MooncordData")
+		BaseDir = path.Join(dir, "..", "MooncordData")
 	} else {
 		Log.Debug("Using UserConfig")
-		BaseDir = appdir.New("Equicord").UserConfig()
+		BaseDir = appdir.New("Mooncord").UserConfig()
 	}
-	dir := os.Getenv("EQUICORD_DIRECTORY")
+	dir := os.Getenv("MOONCORD_DIRECTORY")
 	if dir == "" {
 		if !ExistsFile(BaseDir) {
 			BaseDirErr = os.Mkdir(BaseDir, 0755)
@@ -43,10 +43,10 @@ func init() {
 		}
 	}
 	if dir != "" {
-		Log.Debug("Using EQUICORD_DIRECTORY")
-		EquicordDirectory = dir
+		Log.Debug("Using MOONCORD_DIRECTORY")
+		MooncordDirectory = dir
 	} else {
-		EquicordDirectory = path.Join(BaseDir, "equicord.asar")
+		MooncordDirectory = path.Join(BaseDir, "mooncord.asar")
 	}
 }
 
@@ -99,7 +99,7 @@ func patchAppAsar(dir string, isSystemElectron bool) (err error) {
 	}
 
 	Log.Debug("Writing custom app.asar to", appAsar)
-	if err := WriteAppAsar(appAsar, EquicordDirectory); err != nil {
+	if err := WriteAppAsar(appAsar, MooncordDirectory); err != nil {
 		return err
 	}
 
@@ -149,14 +149,14 @@ func (di *DiscordInstall) patch() error {
 			}
 		}
 
-		Log.Debug("This is a flatpak. Trying to grant the Flatpak access to", EquicordDirectory+"...")
+		Log.Debug("This is a flatpak. Trying to grant the Flatpak access to", MooncordDirectory+"...")
 
 		isSystemFlatpak := strings.HasPrefix(di.path, "/var")
 		var args []string
 		if !isSystemFlatpak {
 			args = append(args, "--user")
 		}
-		args = append(args, "override", name, "--filesystem="+EquicordDirectory)
+		args = append(args, "override", name, "--filesystem="+MooncordDirectory)
 		fullCmd := "flatpak " + strings.Join(args, " ")
 
 		Log.Debug("Running", fullCmd)
@@ -177,7 +177,7 @@ func (di *DiscordInstall) patch() error {
 			err = cmd.Run()
 		}
 		if err != nil {
-			return errors.New("Failed to grant Discord Flatpak access to " + EquicordDirectory + ": " + err.Error())
+			return errors.New("Failed to grant Discord Flatpak access to " + MooncordDirectory + ": " + err.Error())
 		}
 	}
 	return nil
