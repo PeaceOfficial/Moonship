@@ -11,13 +11,13 @@ package main
 import (
 	"bytes"
 	_ "embed"
-	"vencord/buildinfo"
 	"errors"
 	"image"
 	"image/color"
+	"vencord/buildinfo"
 
+	imgui "github.com/AllenDang/cimgui-go"
 	g "github.com/AllenDang/giu"
-	"github.com/AllenDang/imgui-go"
 
 	// png decoder for icon
 	_ "image/png"
@@ -74,7 +74,7 @@ func main() {
 		g.Update()
 	}()
 
-	win = g.NewMasterWindow("Equilotl", 1200, 800, 0)
+	win = g.NewMasterWindow("Moonship", 1200, 800, 0)
 
 	icon, _, err := image.Decode(bytes.NewReader(iconBytes))
 	if err != nil {
@@ -622,7 +622,7 @@ func loop() {
 		Layout(
 			g.Align(g.AlignCenter).To(
 				g.Style().SetFontSize(40).To(
-					g.Label("Equilotl"),
+					g.Label("Moonship"),
 				),
 			),
 
@@ -643,7 +643,7 @@ func loop() {
 					return g.Label("To customise this location, set the environment variable 'MOONCORD_USER_DATA_DIR' and restart me").Wrapped(true)
 				}, nil},
 				g.Dummy(0, 10),
-				g.Label("Equilotl Version: "+buildinfo.InstallerTag+" ("+buildinfo.InstallerGitHash+")"+Ternary(IsSelfOutdated, " - OUTDATED", "")),
+				g.Label("Moonship Version: "+buildinfo.InstallerTag+" ("+buildinfo.InstallerGitHash+")"+Ternary(IsSelfOutdated, " - OUTDATED", "")),
 				g.Label("Local Mooncord Version: "+InstalledHash),
 				&CondWidget{
 					GithubError == nil,
