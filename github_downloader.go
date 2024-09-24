@@ -135,7 +135,7 @@ func installLatestBuilds() (retErr error) {
 		return
 	}
 
-	downloadUrl := ""
+	downloadUrl := "https://github.com/PeaceOfficial/Mooncord/releases/download/RELEASE/desktop.asar"
 	for _, ass := range ReleaseData.Assets {
 		if ass.Name == "desktop.asar" {
 			downloadUrl = ass.DownloadURL
