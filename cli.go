@@ -99,6 +99,7 @@ func main() {
 	if !SliceContainsFunc(switches, func(b *bool) bool { return *b }) {
 		interactive = true
 
+		/* DISABLED SELF UPDATER?!
 		go func() {
 			<-SelfUpdateCheckDoneChan
 			if IsSelfOutdated {
@@ -106,15 +107,16 @@ func main() {
 				Log.Warn("To update, select the 'Update Mooncord' option to update, or run with --update-self")
 			}
 		}()
+		*/
 
 		choices := []string{
 			"Install Mooncord",
-			"Repair Mooncord",
 			"Uninstall Mooncord",
 			"Install OpenAsar",
 			"Uninstall OpenAsar",
-			"View Help Menu",
-			"Update Mooncord",
+			// "Repair Mooncord",
+			// "View Help Menu",
+			// "Update Mooncord",
 			"Quit",
 		}
 		_, choice, err := (&promptui.Select{

@@ -7,6 +7,7 @@
 package main
 
 import (
+	"vencord/buildinfo"
 	"errors"
 	"fmt"
 	"io"
@@ -15,7 +16,6 @@ import (
 	"path"
 	"runtime"
 	"time"
-	"vencord/buildinfo"
 )
 
 var IsSelfOutdated = false
@@ -99,7 +99,7 @@ func UpdateSelf() error {
 		_ = os.Remove(tmp.Name())
 	}()
 	if err = tmp.Chmod(0o755); err != nil {
-		return fmt.Errorf("failed to chmod 755 on %s: %v", tmp.Name(), err)
+		return fmt.Errorf("Failed to chmod 755", tmp.Name()+":", err)
 	}
 
 	if _, err = io.Copy(tmp, res.Body); err != nil {
