@@ -63,7 +63,7 @@ func main() {
 	}
 
 	if *versionFlag {
-		fmt.Println("Moonship Cli", buildinfo.InstallerTag, "("+buildinfo.InstallerGitHash+")")
+		fmt.Println("Mooncord Cli", buildinfo.InstallerTag, "("+buildinfo.InstallerGitHash+")")
 		fmt.Println("Copyright (C) 2024 Mooncord and contributors")
 		fmt.Println("License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.")
 		return
@@ -103,7 +103,7 @@ func main() {
 			<-SelfUpdateCheckDoneChan
 			if IsSelfOutdated {
 				Log.Warn("Your installer is outdated.")
-				Log.Warn("To update, select the 'Update Moonship' option to update, or run with --update-self")
+				Log.Warn("To update, select the 'Update Mooncord' option to update, or run with --update-self")
 			}
 		}()
 
@@ -114,7 +114,7 @@ func main() {
 			"Install OpenAsar",
 			"Uninstall OpenAsar",
 			"View Help Menu",
-			"Update Moonship",
+			"Update Mooncord",
 			"Quit",
 		}
 		_, choice, err := (&promptui.Select{
@@ -129,7 +129,7 @@ func main() {
 			return
 		case "Quit":
 			return
-		case "Update Moonship":
+		case "Update Mooncord":
 			if err := UpdateSelf(); err != nil {
 				Log.Error("Failed to update self:", err)
 				exitFailure()

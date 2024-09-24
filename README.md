@@ -1,20 +1,20 @@
-# Moonship
+# Equilotl
 
-The Moonship Installer allows you to install [Mooncord, the cutest Discord Desktop client mod](https://github.com/PeaceOfficial/Mooncord)
+The Equicord Installer allows you to install [Equicord, the cutest Discord Desktop client mod](https://github.com/Equicord/Equicord)
 
-![image](https://i.imgur.com/L03uUYk.png)
+![image](https://i.imgur.com/oHN41ss.png)
 
 ## Usage
 
 Windows
-- [GUI](https://github.com/PeaceOfficial/Moonship/releases/latest/download/Moonship.exe) 
-- [CLI](https://github.com/PeaceOfficial/Moonship/releases/latest/download/MoonshipCli.exe)
+- [GUI](https://github.com/Equicord/Equilotl/releases/latest/download/Equilotl.exe) 
+- [CLI](https://github.com/Equicord/Equilotl/releases/latest/download/EquilotlCli.exe)
 
 MacOS
-- [GUI](https://github.com/PeaceOfficial/Moonship/releases/latest/download/Moonship.MacOS.zip)
+- [GUI](https://github.com/Equicord/Equilotl/releases/latest/download/Equilotl.MacOS.zip)
 
 Linux 
-- [CLI](https://github.com/PeaceOfficial/Moonship/releases/latest/download/MoonshipCli-Linux)
+- [CLI](https://github.com/Equicord/Equilotl/releases/latest/download/EquilotlCli-Linux)
 ## Building from source
 
 ### Prerequisites 
@@ -70,4 +70,4 @@ go build --tags cli
 ```
 
 You might want to pass some flags to this command to get a better build.
-See [the GitHub workflow](https://github.com/PeaceOfficial/Moonship/blob/main/.github/workflows/release.yml) for what flags I pass or if you want more precise instructions
+See [the GitHub workflow](https://github.com/Equicord/Equilotl/blob/main/.github/workflows/release.yml) for what flags I pass or if you want more precise instructions

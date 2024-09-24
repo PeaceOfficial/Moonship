@@ -46,15 +46,15 @@ func init() {
 }
 
 func GetInstallerDownloadLink() string {
-	const BaseUrl = "https://github.com/PeaceOfficial/Moonship/releases/latest/download/"
+	const BaseUrl = "https://github.com/Equicord/Equilotl/releases/latest/download/"
 	switch runtime.GOOS {
 	case "windows":
-		filename := Ternary(buildinfo.UiType == buildinfo.UiTypeCli, "MoonshipCli.exe", "Moonship.exe")
+		filename := Ternary(buildinfo.UiType == buildinfo.UiTypeCli, "EquilotlCli.exe", "Equilotl.exe")
 		return BaseUrl + filename
 	case "darwin":
-		return BaseUrl + "Moonship.MacOS.zip"
+		return BaseUrl + "Equilotl.MacOS.zip"
 	case "linux":
-		return BaseUrl + "MoonshipCli-linux"
+		return BaseUrl + "EquilotlCli-linux"
 	default:
 		return ""
 	}

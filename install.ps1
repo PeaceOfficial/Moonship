@@ -1,6 +1,6 @@
-$link = "https://github.com/PeaceOfficial/Moonship/releases/latest/download/MoonshipCli.exe"
+$link = "https://github.com/Equicord/Equilotl/releases/latest/download/EquilotlCli.exe"
 
-$outfile = "$env:TEMP\MoonshipCli.exe"
+$outfile = "$env:TEMP\EquilotlCli.exe"
 
 Write-Output "Downloading installer to $outfile"
 

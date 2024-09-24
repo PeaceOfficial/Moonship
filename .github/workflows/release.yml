@@ -35,18 +35,18 @@ jobs:
         run: go get -v
 
       - name: Build Cli
-        run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -tags "static cli" -ldflags "-s -w -X 'vencord/buildinfo.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'vencord/buildinfo.InstallerTag=${{ github.ref_name }}'" -o MoonshipCli-linux
+        run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -tags "static cli" -ldflags "-s -w -X 'vencord/buildinfo.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'vencord/buildinfo.InstallerTag=${{ github.ref_name }}'" -o EquilotlCli-linux
 
       - name: Update executable
         run: |
-          chmod +x MoonshipCli-linux
+          chmod +x EquilotlCli-linux
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: Moonship-linux
+          name: Equilotl-linux
           path: |
-            MoonshipCli-linux
+            EquilotlCli-linux
 
 
   build-mac:
@@ -82,26 +82,26 @@ jobs:
         run: go get -v
 
       - name: Build
-        run: CGO_CFLAGS="-mmacosx-version-min=10.15" CGO_LDFLAGS="-mmacosx-version-min=10.15" CGO_ENABLED=1 GOOS=darwin GOARCH=amd64 go build -v -tags static -ldflags "-s -w -X 'vencord/buildinfo.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'vencord/buildinfo.InstallerTag=${{ github.ref_name }}'" -o Moonship
+        run: CGO_CFLAGS="-mmacosx-version-min=10.15" CGO_LDFLAGS="-mmacosx-version-min=10.15" CGO_ENABLED=1 GOOS=darwin GOARCH=amd64 go build -v -tags static -ldflags "-s -w -X 'vencord/buildinfo.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'vencord/buildinfo.InstallerTag=${{ github.ref_name }}'" -o Equilotl
 
       - name: Update executable
         run: |
-          chmod +x Moonship
+          chmod +x Equilotl
 
       - name: Generate MacOS bundle
         run: |
-          mkdir -p Moonship.app/Contents/MacOS
-          mkdir -p Moonship.app/Contents/Resources
-          cp macos/Info.plist Moonship.app/Contents/Info.plist
-          mv Moonship Moonship.app/Contents/MacOS/Moonship
-          cp macos/icon.icns Moonship.app/Contents/Resources/icon.icns
-          zip -r Moonship.MacOS.zip Moonship.app
+          mkdir -p Equilotl.app/Contents/MacOS
+          mkdir -p Equilotl.app/Contents/Resources
+          cp macos/Info.plist Equilotl.app/Contents/Info.plist
+          mv Equilotl Equilotl.app/Contents/MacOS/Equilotl
+          cp macos/icon.icns Equilotl.app/Contents/Resources/icon.icns
+          zip -r Equilotl.MacOS.zip Equilotl.app
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: Moonship-macos
-          path: Moonship.MacOS.zip
+          name: Equilotl-macos
+          path: Equilotl.MacOS.zip
 
 
   build-windows:
@@ -149,22 +149,22 @@ jobs:
           export GOROOT=/mingw64/lib/go
           export GOPATH=/mingw64
           go-winres make --product-version "git-tag"
-          CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -v -tags static -ldflags "-s -w -H=windowsgui -extldflags=-static -X 'vencord/buildinfo.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'vencord/buildinfo.InstallerTag=${{ github.ref_name }}'" -o Moonship.exe
+          CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -v -tags static -ldflags "-s -w -H=windowsgui -extldflags=-static -X 'vencord/buildinfo.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'vencord/buildinfo.InstallerTag=${{ github.ref_name }}'" -o Equilotl.exe
 
       - name: Build i386 Cli
         shell: msys2 {0}
         run: |
           export GOROOT=/mingw64/lib/go
           export GOPATH=/mingw64
-          CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -v -tags "static cli" -ldflags "-s -w -extldflags=-static -X 'vencord/buildinfo.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'vencord/buildinfo.InstallerTag=${{ github.ref_name }}'" -o MoonshipCli.exe
+          CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -v -tags "static cli" -ldflags "-s -w -extldflags=-static -X 'vencord/buildinfo.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'vencord/buildinfo.InstallerTag=${{ github.ref_name }}'" -o EquilotlCli.exe
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: Moonship-windows
+          name: Equilotl-windows
           path: |
-            Moonship.exe
-            MoonshipCli.exe
+            Equilotl.exe
+            EquilotlCli.exe
 
 
   release:
@@ -177,28 +177,28 @@ jobs:
 
       - uses: actions/download-artifact@v3
         with:
-          name: Moonship-linux
+          name: Equilotl-linux
           path: linux
 
       - uses: actions/download-artifact@v3
         with:
-          name: Moonship-macos
+          name: Equilotl-macos
           path: macos
 
       - uses: actions/download-artifact@v3
         with:
-          name: Moonship-windows
+          name: Equilotl-windows
           path: windows
 
       - name: Create the release
         uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5 # v1
         env:
-          GITHUB_TOKEN: ## ${{ secrets.ETOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ETOKEN }}
         with:
           name: ${{ github.ref_name }}
           prerelease: false
           draft: false
           files: |
-            linux/MoonshipCli-linux
-            macos/Moonship.MacOS.zip
-            windows/Moonship*.exe
+            linux/EquilotlCli-linux
+            macos/Equilotl.MacOS.zip
+            windows/Equilotl*.exe

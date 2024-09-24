@@ -16,8 +16,8 @@ import (
 	"image/color"
 	"vencord/buildinfo"
 
-	imgui "github.com/AllenDang/cimgui-go"
 	g "github.com/AllenDang/giu"
+	"github.com/AllenDang/imgui-go"
 
 	// png decoder for icon
 	_ "image/png"
@@ -629,18 +629,18 @@ func loop() {
 			g.Dummy(0, 20),
 			g.Style().SetFontSize(20).To(
 				g.Row(
-					g.Label(Ternary(IsDevInstall, "Dev Install: ", "Mooncord will be downloaded to: ")+MooncordDirectory),
+					g.Label(Ternary(IsDevInstall, "Dev Install: ", "Mooncord will be downloaded to: ")+EquicordDirectory),
 					g.Style().
 						SetColor(g.StyleColorButton, DiscordBlue).
 						SetStyle(g.StyleVarFramePadding, 4, 4).
 						To(
 							g.Button("Open Directory").OnClick(func() {
-								g.OpenURL("file://" + path.Dir(MooncordDirectory))
+								g.OpenURL("file://" + path.Dir(EquicordDirectory))
 							}),
 						),
 				),
 				&CondWidget{!IsDevInstall, func() g.Widget {
-					return g.Label("To customise this location, set the environment variable 'MOONCORD_USER_DATA_DIR' and restart me").Wrapped(true)
+					return g.Label("To customise this location, set the environment variable 'EQUICORD_USER_DATA_DIR' and restart me").Wrapped(true)
 				}, nil},
 				g.Dummy(0, 10),
 				g.Label("Moonship Version: "+buildinfo.InstallerTag+" ("+buildinfo.InstallerGitHash+")"+Ternary(IsSelfOutdated, " - OUTDATED", "")),

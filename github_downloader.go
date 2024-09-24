@@ -67,7 +67,7 @@ func GetGithubRelease(url string) (*GithubRelease, error) {
 func InitGithubDownloader() {
 	GithubDoneChan = make(chan bool, 1)
 
-	IsDevInstall = os.Getenv("MOONCORD_DEV_INSTALL") == "1"
+	IsDevInstall = os.Getenv("EQUICORD_DEV_INSTALL") == "1"
 	Log.Debug("Is Dev Install: ", IsDevInstall)
 	if IsDevInstall {
 		GithubDoneChan <- true
@@ -95,27 +95,27 @@ func InitGithubDownloader() {
 	}()
 
 	// either .asar file or directory with main.js file (in DEV)
-	MooncordFile := MooncordDirectory
+	EquicordFile := EquicordDirectory
 
-	stat, err := os.Stat(MooncordFile)
+	stat, err := os.Stat(EquicordFile)
 	if err != nil {
 		return
 	}
 
 	// dev
 	if stat.IsDir() {
-		MooncordFile = path.Join(MooncordFile, "main.js")
+		EquicordFile = path.Join(EquicordFile, "main.js")
 	}
 
 	// Check hash of installed version if exists
-	b, err := os.ReadFile(MooncordFile)
+	b, err := os.ReadFile(EquicordFile)
 	if err != nil {
 		return
 	}
 
-	Log.Debug("Found existing Mooncord Install. Checking for hash...")
+	Log.Debug("Found existing Equicord Install. Checking for hash...")
 
-	re := regexp.MustCompile(`// Mooncord (\w+)`)
+	re := regexp.MustCompile(`// Equicord (\w+)`)
 	match := re.FindSubmatch(b)
 	if match != nil {
 		InstalledHash = string(match[1])
@@ -160,15 +160,15 @@ func installLatestBuilds() (retErr error) {
 		retErr = err
 		return
 	}
-	out, err := os.OpenFile(MooncordDirectory, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
+	out, err := os.OpenFile(EquicordDirectory, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
 	if err != nil {
-		Log.Error("Failed to create", MooncordDirectory+":", err)
+		Log.Error("Failed to create", EquicordDirectory+":", err)
 		retErr = err
 		return
 	}
 	read, err := io.Copy(out, res.Body)
 	if err != nil {
-		Log.Error("Failed to download to", MooncordDirectory+":", err)
+		Log.Error("Failed to download to", EquicordDirectory+":", err)
 		retErr = err
 		return
 	}
@@ -181,7 +181,7 @@ func installLatestBuilds() (retErr error) {
 		return
 	}
 
-	_ = FixOwnership(MooncordDirectory)
+	_ = FixOwnership(EquicordDirectory)
 
 	InstalledHash = LatestHash
 	return

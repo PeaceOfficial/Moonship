@@ -7,14 +7,14 @@
 package main
 
 import (
-	"vencord/buildinfo"
 	"image/color"
+	"vencord/buildinfo"
 )
 
-const ReleaseUrl = "https://api.github.com/repos/PeaceOfficial/Moonship/releases/latest"
+const ReleaseUrl = "https://api.github.com/repos/PeaceOfficial/Mooncord/releases/latest"
 const InstallerReleaseUrl = "https://api.github.com/repos/PeaceOfficial/Moonship/releases/latest"
 
-var UserAgent = "Moonship/" + buildinfo.InstallerGitHash + " (https://github.com/PeaceOfficial/Moonship)"
+var UserAgent = "Moonship/" + buildinfo.InstallerGitHash + " (https://github.com/PeaceOffical/Moonship)"
 
 var (
 	DiscordGreen  = color.RGBA{R: 0x2D, G: 0x7C, B: 0x46, A: 0xFF}
