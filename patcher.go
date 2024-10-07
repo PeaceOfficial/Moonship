@@ -46,7 +46,7 @@ func init() {
 		Log.Debug("Using EQUICORD_DIRECTORY")
 		EquicordDirectory = dir
 	} else {
-		EquicordDirectory = path.Join(BaseDir, "mooncord.asar")
+		EquicordDirectory = path.Join(BaseDir, "desktop.asar")
 	}
 }
 
