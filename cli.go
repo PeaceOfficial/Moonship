@@ -112,8 +112,8 @@ func main() {
 		choices := []string{
 			"Install Mooncord",
 			"Uninstall Mooncord",
-			"Install OpenAsar",
-			"Uninstall OpenAsar",
+			// "Install OpenAsar",
+			// "Uninstall OpenAsar",
 			// "Repair Mooncord",
 			// "View Help Menu",
 			// "Update Mooncord",
